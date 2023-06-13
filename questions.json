@@ -1,0 +1,64 @@
+{
+    "questions": [
+        {
+            "question": "Which of this protocols are an external gateway protocol?",
+            "replies" : [
+                "FTP",
+                "ISIS",
+                "BGP",
+                "OSPF"
+            ],
+            "id" : 1
+        },
+        {
+            "question": "Which of this followings address aren't a local IP?",
+            "replies" : [
+                "192.168.128.0/25",
+                "10.0.52.45/28",
+                "8.8.0.0/8",
+                "193.242.2.0/23"
+            ],
+            "id" : 2
+        },
+        {
+            "question": "In a Nokia device, how can you check all the vpls created?",
+            "replies" : [
+                "show service vpls",
+                "configuration show vpls",
+                "configue vpls | show",
+                "show vpls all"
+            ],
+            "id" : 3
+        },
+        {
+            "question": "How can you leave vi saving the changes?",
+            "replies" : [
+                "Esc + wq!",
+                "Esc + q!",
+                "wq!",
+                "q!"
+            ],
+            "id" : 4
+        },
+        {
+            "question": "How can you show live the traffic of a port aggregation in a Nokia Device?",
+            "replies" : [
+                "show lag XX traffic",
+                "show lag XX monitor",
+                "monitor lag XX",
+                "lag monitor XX"
+            ],
+            "id" : 5
+        },
+        {
+            "question": "In what type of device you can use this command: 'display aaa online-fail-record'",
+            "replies" : [
+                "Cisco",
+                "Alcatel - Nokia",
+                "Juniper",
+                "Huawei"
+            ],
+            "id" : 6
+        }
+    ]
+}
