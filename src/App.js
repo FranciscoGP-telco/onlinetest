@@ -36,15 +36,42 @@ const ShowQuestions = ({questions, onValueChange}) => {
   }
 }
 
+const ShowAnswers = ({questions, correctAnswers, toggleShowAnswers}) => {
+  console.log(correctAnswers)
+  let answer = ''
+  if(toggleShowAnswers){
+    return(
+      <div>
+        <form>
+          {questions.map(
+            question => 
+              <>
+                <h2>Question {question.id} </h2>
+                <p>{question.question}</p>
+                {
+                  answer = correctAnswers.find(correctAnswer => correctAnswer.id === question.id).answer
+                } 
+                <p>The correct answer is: </p>
+                <p>{question.replies[answer]}</p>
+              </>
+          )}
+        </form>
+      </div>
+  )
+}
+}
 
-const CheckResultButton = (props) => (
+const ShowButton = (props) => (
   <button onClick={props.handleClick}>
-    holaaa2
+    {props.text}
   </button>
 )
 
-const Results = ({resultValue}) => {
-  return <p>You've {resultValue} questions correct!</p>
+const Results = ({resultValue, showResult}) => {
+  if(showResult){
+    return <p>You've {resultValue} questions correct!</p>
+  }
+  
 }
 
 function App() {
@@ -52,7 +79,8 @@ function App() {
   const [correctAnswers, setCorrectAnswers] = useState(null)
   const [userAnswers, setUserAnswers] = useState([])
   const [result, setResult] = useState(0)
-
+  const [showResult, setShowResult] = useState(null)
+  const [toggleShowAnswers, setToggleShowAnswers] = useState(null)
 
   useEffect(() => {
     jsonReaderService
@@ -108,15 +136,25 @@ function App() {
       }
     })
     setResult(calculatedResult)
+    setShowResult(true)
   }
 
+  const toggleAnswers = () => {
+    if(toggleShowAnswers) {
+      setToggleShowAnswers(false)
+    } else {
+      setToggleShowAnswers(true)
+    }
+  }
 
   return (
     <div>
       <Header />
       <ShowQuestions questions={questions} onValueChange={onValueChange}/>
-      <CheckResultButton handleClick={() => checkResult()} />
-      <Results resultValue={result}/>
+      <ShowButton handleClick={() => checkResult()} text='Show Results!' />
+      <ShowButton handleClick={() => toggleAnswers()} text='Show Answers!' />
+      <Results resultValue={result} showResult={showResult}/>
+      <ShowAnswers questions={questions} correctAnswers={correctAnswers} toggleShowAnswers={toggleShowAnswers} />
     </div>
   );
 }
