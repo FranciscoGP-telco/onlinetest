@@ -1,78 +1,12 @@
-import jsonReaderService from './services/jsonreader'
 import { useState, useEffect } from 'react';
 
-const Header = () => {
-  return <h1>Online Test Generator</h1>
-}
+import jsonReaderService from './services/jsonreader';
 
-const ShowQuestions = ({questions, onValueChange}) => {
-  if(questions){
-      return(
-        <div>
-          <form>
-            {questions.map(
-              question => 
-                <>
-                  <h2>Question {question.id} </h2>
-                  <p>{question.question}</p>
-                  {question.replies.map(
-                    (reply, index) =>
-                      <>
-                        <input 
-                          type="radio" 
-                          id={`answer${question.id}-${index}`} 
-                          name={`question-${question.id}`} 
-                          value={reply}
-                          onChange={() => onValueChange(question.id, index)}
-                        /> 
-                        <label for={reply}>{reply}</label><br />
-                      </>
-                  )}
-                </>
-            )}
-          </form>
-        </div>
-    )
-  }
-}
-
-const ShowAnswers = ({questions, correctAnswers, toggleShowAnswers}) => {
-  console.log(correctAnswers)
-  let answer = ''
-  if(toggleShowAnswers){
-    return(
-      <div>
-        <form>
-          {questions.map(
-            question => 
-              <>
-                <h2>Question {question.id} </h2>
-                <p>{question.question}</p>
-                {
-                  answer = correctAnswers.find(correctAnswer => correctAnswer.id === question.id).answer
-                } 
-                <p>The correct answer is: </p>
-                <p>{question.replies[answer]}</p>
-              </>
-          )}
-        </form>
-      </div>
-  )
-}
-}
-
-const ShowButton = (props) => (
-  <button onClick={props.handleClick}>
-    {props.text}
-  </button>
-)
-
-const Results = ({resultValue, showResult}) => {
-  if(showResult){
-    return <p>You've {resultValue} questions correct!</p>
-  }
-  
-}
+import ShowQuestions from './components/Questions';
+import ShowAnswers from './components/Answers';
+import ShowButton from './components/Button';
+import ShowResults from './components/Results';
+import ShowHeader from './components/Header';
 
 function App() {
   const [questions, setQuestions] = useState(null)
@@ -149,11 +83,11 @@ function App() {
 
   return (
     <div>
-      <Header />
+      <ShowHeader />
       <ShowQuestions questions={questions} onValueChange={onValueChange}/>
       <ShowButton handleClick={() => checkResult()} text='Show Results!' />
       <ShowButton handleClick={() => toggleAnswers()} text='Show Answers!' />
-      <Results resultValue={result} showResult={showResult}/>
+      <ShowResults resultValue={result} showResult={showResult}/>
       <ShowAnswers questions={questions} correctAnswers={correctAnswers} toggleShowAnswers={toggleShowAnswers} />
     </div>
   );
